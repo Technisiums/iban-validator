@@ -11,8 +11,8 @@ class IBANValidation(APIView):
         :return: {'is_valid':bool}
         """
         iban = request.GET.get('iban', '')
-
-        return Response({'is_valid': validate_montenegro_iban(iban)}, status=status.HTTP_200_OK)
+        result = validate_montenegro_iban(iban)
+        return Response({'is_valid': result}, status=status.HTTP_200_OK if result else status.HTTP_400_BAD_REQUEST)
 
 
 def validate_montenegro_iban(iban: str) -> bool:
